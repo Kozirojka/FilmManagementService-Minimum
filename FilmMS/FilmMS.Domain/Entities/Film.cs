@@ -10,7 +10,7 @@ public class Film
     public string Director { get; set; }
     public DateTime ReleaseDate { get; set; }
     public string Description { get; set; }
-
+    public double Rating { get; set; }
 
     public void Update(Film film)
     {
@@ -19,5 +19,6 @@ public class Film
         this.Director = film.Director;
         this.ReleaseDate = film.ReleaseDate;
         this.Description = film.Description;
+        this.Rating = film.Rating;
     }
 }
