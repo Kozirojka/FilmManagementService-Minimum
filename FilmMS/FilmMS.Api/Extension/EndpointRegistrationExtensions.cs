@@ -4,20 +4,21 @@ namespace FilmMS.Api.Extension;
 
 public static class EndpointRegistrationExtensions
 {
-    public static void RegisterAllEndpoints(this IEndpointRouteBuilder endpoints)
+    public static void RegisterAllEndpoints(this IEndpointRouteBuilder app)
     {
         var endpointDefinitions = AppDomain
             .CurrentDomain
             .GetAssemblies()
-            .SelectMany(a => a.GetTypes())
+            .SelectMany(assembly => assembly.GetTypes())
             .Where(type => typeof(IEndpoint).IsAssignableFrom(type)
-                && !type.IsInterface && !type.IsAbstract)
+                           && !type.IsInterface && !type.IsInterface)
             .Select(Activator.CreateInstance)
             .Cast<IEndpoint>();
-        
+    
+
         foreach (var endpoint in endpointDefinitions)
         {
-            endpoint.RegisterEndpoints(endpoints);
+            endpoint.RegisterEndpoints(app);
         }
     }
 }

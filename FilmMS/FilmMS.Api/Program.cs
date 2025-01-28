@@ -1,4 +1,5 @@
 using FilmMS.Api.Extension;
+using FilmMS.Application.Films.GetAllFilms;
 using FilmMS.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
     o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(GetAllFilmQueryHandler).Assembly);
+});
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -20,9 +27,7 @@ if (app.Environment.IsDevelopment())
 }   
 
 
-
 app.UseHttpsRedirection();
-
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
