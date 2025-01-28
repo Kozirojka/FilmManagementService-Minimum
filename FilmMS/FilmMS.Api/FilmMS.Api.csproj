@@ -28,4 +28,8 @@
       <ProjectReference Include="..\FilmMS.Infrastructure\FilmMS.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Endpoints\Films\UpdateFilmDetail\" />
+    </ItemGroup>
+
 </Project>
