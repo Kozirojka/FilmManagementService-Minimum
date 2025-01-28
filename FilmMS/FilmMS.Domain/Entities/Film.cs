@@ -10,4 +10,14 @@ public class Film
     public string Director { get; set; }
     public DateTime ReleaseDate { get; set; }
     public string Description { get; set; }
+
+
+    public void Update(Film film)
+    {
+        this.Title = film.Title;
+        this.Genre = film.Genre;
+        this.Director = film.Director;
+        this.ReleaseDate = film.ReleaseDate;
+        this.Description = film.Description;
+    }
 }
