@@ -2,11 +2,9 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import "./EditAddModal.css";
-
-
 import { useState } from "react";
 
-const EditAddModal = ({ onExit, method, film,}) => {
+const EditAddModal = ({ onExit, method, film, onSave}) => {
   const [filmState, setFilmState] = useState(
     film || {
       id: "",
@@ -36,40 +34,14 @@ const EditAddModal = ({ onExit, method, film,}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let url = "https://localhost:7091/films/";
-    let options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: "",
-    };
-
-    if (method === "edit") {
-      url = `${url}${filmState.id}`;
-      options.method = "PUT";
-      options.body = JSON.stringify(filmState);
-    } else {
-
-      const { id, ...filmData } = filmState; // eslint-disable-line no-unused-vars
-
-      options.body = JSON.stringify(filmData);
-    }
-
     try {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log("Server response:", data);
-
+      await onSave(filmState);  
+      onExit();
     } catch (error) {
-      console.error("Error submitting data:", error);
+      console.error("Submit error:", error);
     }
   };
+
 
   return (
     <div className="modal-overlay">

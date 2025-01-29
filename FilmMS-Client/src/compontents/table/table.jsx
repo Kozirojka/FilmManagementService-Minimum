@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,8 +7,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./table.css";
 
-const Table = ({ onModelOpen, onDeleteFilm }) => {
-  const [films, setFilms] = useState([]);
+const Table = ({ data, onModelOpen, onDeleteFilm }) => {
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(0);
   const pageSize = 5;
@@ -21,23 +20,7 @@ const Table = ({ onModelOpen, onDeleteFilm }) => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const getFilms = async () => {
-    try {
-      const result = await fetch("https://localhost:7091/films");
-      const data = await result.json();
-      setFilms(data);
-    } catch (error) {
-      console.error("Error fetching films:", error);
-    } finally {
-      console.log("Films fetched");
-    }
-  };
-
-  useEffect(() => {
-    getFilms();
-  }, []);
-
-  const filteredFilms = films.filter((film) => {
+  const filteredFilms = data.filter((film) => {
     const query = searchValue.toLowerCase();
     return (
       film.title.toLowerCase().includes(query) ||
