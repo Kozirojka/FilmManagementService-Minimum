@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
-
-const Table = ({onModelOpen}) => {
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+const Table = ({ onModelOpen, onDeleteFilm }) => {
   const [films, setFilms] = useState([]);
 
   useEffect(() => {
@@ -12,21 +12,25 @@ const Table = ({onModelOpen}) => {
         const result = await fetch("https://localhost:7091/films");
         const data = await result.json();
 
-        console.log(data)
+        console.log(data);
 
-        setFilms(data); 
+        setFilms(data);
       } catch (error) {
         console.error("Error fetching films:", error);
       } finally {
         console.log("Films fetched");
-    }
+      }
     };
 
     getFilms();
-  }, []);  
+  }, []);
 
   return (
     <>
+      <Button color="secondary" onClick={() => onModelOpen(null, "add")}>
+        <AddIcon />
+      </Button>
+
       <table>
         <thead>
           <tr>
@@ -36,6 +40,7 @@ const Table = ({onModelOpen}) => {
             <th>Release</th>
             <th>Rating</th>
             <th>Descretion</th>
+            <th>Option</th>
           </tr>
 
           {films.map((film) => {
@@ -46,20 +51,24 @@ const Table = ({onModelOpen}) => {
                 <td>{film.director}</td>
                 <td>{film.release}</td>
                 <td>{film.rating}</td>
-                <td>{film.descretion}</td>
+                <td>{film.description}</td>
+                    <td>
+                    <Button
+                    variant="outlined"
+                    size="small"
+                    color="error"
+                    startIcon={<EditIcon />}
+                    onClick={() => onModelOpen(film, "edit")}
+                  />
+                
+                </td>
                 <td>
                   <Button
                     variant="outlined"
                     size="small"
-                    sx={{
-                      borderColor: "red", 
-                      color: "red",
-                      "&:hover": { borderColor: "darkred", color: "darkred" },
-                    }}
-                    onClick={() => onModelOpen(film, "edit")}
-                  >
-                    <EditIcon />
-                  </Button>
+                    startIcon={<DeleteIcon />}
+                    onClick={() => onDeleteFilm(film)}
+                  />
                 </td>
               </tr>
             );
