@@ -20,7 +20,7 @@ const DeleteModal = ({ onExit, film }) => {
   };
 
   return (
-    <div className="modal">
+    <div className="modal-overlay">
       <div className="modal-content">
         <h3>Are you sure you want to delete {film?.title}?</h3>
         <div>

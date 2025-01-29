@@ -1,6 +1,8 @@
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
+import "./EditAddModal.css";
+
 
 import { useState } from "react";
 
@@ -70,7 +72,7 @@ const EditAddModal = ({ onExit, method, film,}) => {
   };
 
   return (
-    <div className="modal">
+    <div className="modal-overlay">
       <div className="modal-content">
         {method === "edit" ? <h2>Edit Film</h2> : <h2>Add Film</h2>}
 
@@ -147,11 +149,11 @@ const EditAddModal = ({ onExit, method, film,}) => {
           </div>
         </form>
 
-        <IconButton type="submit" onClick={handleSubmit}>
+        <IconButton type="submit" color='success' onClick={handleSubmit}>
           <CheckIcon />
         </IconButton>
 
-        <IconButton onClick={onExit}>
+        <IconButton onClick={onExit} color="error">
           <CloseIcon />
         </IconButton>
       </div>
