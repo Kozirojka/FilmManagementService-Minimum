@@ -1,0 +1,32 @@
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.table-container table {
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.table-container th,
+.table-container td {
+  border: 1px solid #666;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.table-container thead {
+  background-color: #eee;
+}
+
+.table-container input {
+  margin-left: 1rem;
+}
+
+.table-container .paginator {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
