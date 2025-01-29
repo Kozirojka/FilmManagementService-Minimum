@@ -19,6 +19,19 @@ builder.Services.AddMediatR(cfg =>
 });
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AlloFront",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") 
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -26,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }   
 
+app.UseCors("AlloFront");
 
 app.UseHttpsRedirection();
 

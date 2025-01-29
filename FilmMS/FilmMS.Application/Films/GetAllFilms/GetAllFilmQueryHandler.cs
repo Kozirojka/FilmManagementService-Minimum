@@ -16,11 +16,7 @@ public class GetAllFilmQueryHandler(ApplicationDbContext context)
     {
         var films = await context.Films.ToListAsync(cancellationToken);
 
-        if (films is null || !films.Any())
-        {
-            return Error.NotFound("Films.NotFound", "No films were found.");
-        }
-
+        
         return films;
     }
 }

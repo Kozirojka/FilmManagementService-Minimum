@@ -26,7 +26,7 @@ public class GetAllFilmsEndpoint : IEndpoint
             return Results.Problem(
                 detail: firstError.Description,
                 title: firstError.Code,
-                statusCode: StatusCodes.Status404NotFound
+                statusCode: StatusCodes.Status500InternalServerError
             );
         }
         

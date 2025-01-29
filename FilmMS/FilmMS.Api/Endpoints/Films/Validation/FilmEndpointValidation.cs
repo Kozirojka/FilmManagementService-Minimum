@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace FilmMS.Api.Endpoints.Films.Validation;
 
-public class UpdateFilmEndpointValidation : AbstractValidator<Film>
+public class FilmEndpointValidation : AbstractValidator<Film>
 {
-    public UpdateFilmEndpointValidation()
+    public FilmEndpointValidation()
     {
         RuleFor(f => f.Title).NotEmpty().WithMessage("Title is required.");
         

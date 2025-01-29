@@ -12,7 +12,7 @@ namespace FilmMS.Api.Endpoints.Films.AddNewFilm;
 
 public class PostNewFilm : IEndpoint
 {
-    private readonly UpdateFilmEndpointValidation _postNewFilmValidation = new();
+    private readonly FilmEndpointValidation _postNewFilmValidation = new();
     
     
     public void RegisterEndpoints(IEndpointRouteBuilder endpoints)
@@ -29,6 +29,16 @@ public class PostNewFilm : IEndpoint
         {
             return Results.BadRequest(validationResult.Errors);
         }
+        
+        if (film.ReleaseDate.Kind == DateTimeKind.Unspecified)
+        {
+            film.ReleaseDate = DateTime.SpecifyKind(film.ReleaseDate, DateTimeKind.Utc);
+        }
+        else
+        {
+            film.ReleaseDate = film.ReleaseDate.ToUniversalTime();
+        }
+
         
         var command = new PostNewFilmCommnad(film);
         var result = await mediator.Send(command);

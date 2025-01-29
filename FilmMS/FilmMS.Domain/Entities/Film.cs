@@ -4,7 +4,7 @@ namespace FilmMS.Domain.Entities;
 
 public class Film
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
     public string Title { get; set; }
     public string Genre { get; set; }
     public string Director { get; set; }
