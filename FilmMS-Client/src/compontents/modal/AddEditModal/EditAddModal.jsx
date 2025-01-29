@@ -18,26 +18,55 @@ const EditAddModal = ({ onExit, method, film }) => {
   );
 
   const handleChange = (e) => {
+    let { name, value } = e.target;
+
+    if (name === "id") {
+      value = value ? parseInt(value, 10) : 0;
+    } else if (name === "rating") {
+      value = value ? parseFloat(value) : 0;
+    }
+
     setFilmState({
       ...filmState,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+
+    let url = "https://localhost:7091/films/";
+    let options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: "",
+    };
 
     if (method === "edit") {
-        console.log("Editing data:", filmState);
-    }
-    
-    if(method === "add"){
-        console.log("Adding data:", filmState);
-    }
-    console.log("Submitting data:", filmState);
+      url = `${url}${filmState.id}`;
+      options.method = "PUT";
+      options.body = JSON.stringify(filmState);
+    } else {
 
+      const { id, ...filmData } = filmState; // eslint-disable-line no-unused-vars
+
+      options.body = JSON.stringify(filmData);
+    }
+
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Server response:", data);
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
   };
-
 
   return (
     <div className="modal">
@@ -83,7 +112,12 @@ const EditAddModal = ({ onExit, method, film }) => {
             <input
               id="releaseDate"
               name="releaseDate"
-              value={filmState.releaseDate}
+              type="date"
+              value={
+                filmState.releaseDate
+                  ? new Date(filmState.releaseDate).toISOString().split("T")[0]
+                  : ""
+              }
               placeholder="release date"
               onChange={handleChange}
             />
@@ -101,7 +135,7 @@ const EditAddModal = ({ onExit, method, film }) => {
           </div>
 
           <div>
-            <label htmlFor="raring">Rating: </label>
+            <label htmlFor="rating">Rating: </label>
             <input
               id="rating"
               name="rating"
@@ -110,12 +144,9 @@ const EditAddModal = ({ onExit, method, film }) => {
               onChange={handleChange}
             />
           </div>
-
-       
-
         </form>
 
-        <IconButton type="submit">
+        <IconButton type="submit" onClick={handleSubmit}>
           <CheckIcon />
         </IconButton>
 

@@ -12,7 +12,6 @@ const Table = ({ onModelOpen, onDeleteFilm }) => {
         const result = await fetch("https://localhost:7091/films");
         const data = await result.json();
 
-        console.log(data);
 
         setFilms(data);
       } catch (error) {

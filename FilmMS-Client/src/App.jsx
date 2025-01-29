@@ -1,5 +1,5 @@
 import Table from "./compontents/table/table";
-import Modal from "./compontents/modal/modal";
+import Modal from "./compontents/modal/AddEditModal/EditAddModal";
 import DeleteModal from "./compontents/modal/DeleteModal/DeleteModal";
 
 import { useState } from "react";
@@ -16,6 +16,7 @@ function App() {
   };
   const hideModal = () => {
     setIsModalVisible(false);
+    setFilms([]);
   };
 
   const showDeleteModal = () => {
@@ -24,6 +25,7 @@ function App() {
 
   const hideDeleteModal = () => {
     setIsDeleteModalVisible(false);
+    setFilms([]);
   };
 
   const openDeleteWindow = (film) => {
@@ -35,7 +37,6 @@ function App() {
     setFilms(film);
     setMethod(methodType);
     showModal();
-    console.log(film);
   };
 
   return (

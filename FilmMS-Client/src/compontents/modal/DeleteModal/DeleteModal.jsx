@@ -1,9 +1,21 @@
 import Button from "@mui/material/Button";
 
 const DeleteModal = ({ onExit, film }) => {
-  const handleDelete = () => {
+  
+  const handleDelete = async () => {
     console.log("Deleting film:", film);
-    // Виклик DELETE
+    
+    const response = await fetch(`https://localhost:7091/films/${film.id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+    
     onExit();
   };
 
