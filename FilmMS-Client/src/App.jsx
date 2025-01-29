@@ -2,14 +2,17 @@ import Table from "./compontents/table/table";
 import Modal from "./compontents/modal/AddEditModal/EditAddModal";
 import DeleteModal from "./compontents/modal/DeleteModal/DeleteModal";
 
-import { useState } from "react";
+import { useState} from "react";
 
 function App() {
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
+  
   const [modalFilm, setFilms] = useState([]);
   const [method, setMethod] = useState("");
+
 
   const showModal = () => {
     setIsModalVisible(true);

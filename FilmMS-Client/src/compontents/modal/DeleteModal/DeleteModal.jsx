@@ -22,10 +22,10 @@ const DeleteModal = ({ onExit, film }) => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Are you sure you want to delete {film?.title}?</h2>
+        <h3>Are you sure you want to delete {film?.title}?</h3>
         <div>
-          <Button onClick={handleDelete} color="error">Yes, Delete</Button>
-          <Button onClick={onExit}>Cancel</Button>
+          <Button onClick={handleDelete} variant="outlined" color="error">Yes, Delete</Button>
+          <Button onClick={onExit} >Cancel</Button>
         </div>
       </div>
     </div>

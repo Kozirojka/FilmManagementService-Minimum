@@ -4,7 +4,7 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import { useState } from "react";
 
-const EditAddModal = ({ onExit, method, film }) => {
+const EditAddModal = ({ onExit, method, film,}) => {
   const [filmState, setFilmState] = useState(
     film || {
       id: "",
@@ -63,6 +63,7 @@ const EditAddModal = ({ onExit, method, film }) => {
 
       const data = await response.json();
       console.log("Server response:", data);
+
     } catch (error) {
       console.error("Error submitting data:", error);
     }
