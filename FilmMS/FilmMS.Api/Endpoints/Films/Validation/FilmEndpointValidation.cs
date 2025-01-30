@@ -3,6 +3,7 @@ using FluentValidation;
 
 namespace FilmMS.Api.Endpoints.Films.Validation;
 
+// Validates the Film entity before processing
 public class FilmEndpointValidation : AbstractValidator<Film>
 {
     public FilmEndpointValidation()
@@ -13,11 +14,12 @@ public class FilmEndpointValidation : AbstractValidator<Film>
         
         RuleFor(f => f.ReleaseDate)
             .LessThan(DateTime.Today)
-            .WithMessage("ReleaseDate is required.");
+            .WithMessage("Release should be less than today.");
         
         RuleFor(f => f.Genre).NotEmpty().WithMessage("Genre is required.");
         
-        RuleFor(f => f.Rating).LessThan(10).WithMessage("Rating must be less than 10")
-            .GreaterThan(0).WithMessage("Rating must be greater than 0");
+        // Rating must be between 1 and 10
+        RuleFor(f => f.Rating).LessThanOrEqualTo(10).WithMessage("Rating must be less than 10")
+            .GreaterThanOrEqualTo(1).WithMessage("Rating must be greater than 0");
     }
 }

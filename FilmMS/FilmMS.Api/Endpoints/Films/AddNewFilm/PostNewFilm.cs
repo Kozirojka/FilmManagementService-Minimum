@@ -10,6 +10,10 @@ using MediatR;
 namespace FilmMS.Api.Endpoints.Films.AddNewFilm;
 
 
+/// <summary>
+/// Api endpoint for adding film to database
+/// Validates the input, ensures correct date format, and sends the request to MediatR.
+/// </summary>
 public class PostNewFilm : IEndpoint
 {
     private readonly FilmEndpointValidation _postNewFilmValidation = new();
@@ -17,7 +21,12 @@ public class PostNewFilm : IEndpoint
     
     public void RegisterEndpoints(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("/films", PostNewFilmHandler).WithTags("Films");
+        endpoints.MapPost("/films", PostNewFilmHandler)
+            .WithTags("Films") 
+            .WithSummary("Add a new film")
+            .WithDescription("Adds a favorite film to the database.") 
+            .Produces<Film>(StatusCodes.Status200OK) 
+            .Produces<List<ValidationFailure>>(StatusCodes.Status400BadRequest);
     }
     
     private async Task<IResult> PostNewFilmHandler(Film film, IMediator mediator)
@@ -27,8 +36,13 @@ public class PostNewFilm : IEndpoint
         
         if(!validationResult.IsValid)
         {
-            return Results.BadRequest(validationResult.Errors);
+            return Results.BadRequest(new
+            {
+                Message = "Validation failed",
+                Errors = validationResult.Errors.Select(x => x.ErrorMessage)
+            });
         }
+
         
         film.ReleaseDate = film.ReleaseDate.ToUniversalTime();
         

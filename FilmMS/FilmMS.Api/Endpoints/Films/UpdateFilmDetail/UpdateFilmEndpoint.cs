@@ -8,13 +8,26 @@ using MediatR;
 
 namespace FilmMS.Api.Endpoints.Films.UpdateFilmDetail;
 
+
+/// <summary>
+/// Endpoint for modifying an existing film.
+/// The request data is validated in the endpoint handler.
+/// </summary>
+/// <remarks>
+/// - You must provide the updated film data in the request body (JSON format).
+/// - The film ID must be included in the URL as a route parameter.
+/// </remarks>
 public class UpdateFilmEndpoint : IEndpoint
 {
     private readonly FilmEndpointValidation _postNewFilmValidation = new();
 
     public void RegisterEndpoints(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPut("/films/{id}", UpdateFilmHandler).WithTags("Films");
+        endpoints.MapPut("/films/{id}", UpdateFilmHandler)
+            .WithTags("Films")
+            .WithDescription("Updates a film, you must provide id of film " +
+                             "in URL and changed data in body(Type of *Film*")
+            .WithSummary("Updates a film.");
     }
 
     private async Task<IResult> UpdateFilmHandler(int id, Film request, IMediator mediator)
@@ -23,7 +36,11 @@ public class UpdateFilmEndpoint : IEndpoint
         
         if(!validationResult.IsValid)
         {
-            return Results.BadRequest(validationResult.Errors);
+            return Results.BadRequest(new
+            {
+                Message = "Validation failed",
+                Errors = validationResult.Errors.Select(x => x.ErrorMessage)
+            });
         }
         
         request.ReleaseDate = request.ReleaseDate.ToUniversalTime();
