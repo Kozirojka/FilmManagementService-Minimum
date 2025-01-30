@@ -23,6 +23,9 @@ const EditAddModal = ({ onExit, method, film, onSave}) => {
     if (name === "id") {
       value = value ? parseInt(value, 10) : 0;
     } else if (name === "rating") {
+
+      if (!/^\d*\.?\d*$/.test(value)) return;
+
       value = value ? parseFloat(value) : 0;
     }
 

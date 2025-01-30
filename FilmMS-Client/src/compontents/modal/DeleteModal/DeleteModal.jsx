@@ -1,10 +1,11 @@
 import Button from "@mui/material/Button";
 
-const DeleteModal = ({ onExit, film, onConfirm }) => {
+const DeleteModal = ({ onExit, film, onConfirm, onSearchChange }) => {
   
   const handleDelete = async () => {
     try {
-      await onConfirm(); 
+      await onConfirm();
+      onSearchChange(""); 
       onExit();
     } catch (error) {
       console.error("Delete failed:", error);

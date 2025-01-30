@@ -7,8 +7,13 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./table.css";
 
-const Table = ({ data, onModelOpen, onDeleteFilm }) => {
-  const [searchValue, setSearchValue] = useState("");
+const Table = ({
+  data,
+  onModelOpen,
+  onDeleteFilm,
+  searchValue,
+  onSearchChange,
+}) => {
   const [page, setPage] = useState(0);
   const pageSize = 5;
 
@@ -20,49 +25,42 @@ const Table = ({ data, onModelOpen, onDeleteFilm }) => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const filteredFilms = data.filter((film) => {
-    const query = searchValue.toLowerCase();
-    return (
-      film.title.toLowerCase().includes(query) ||
-      film.director.toLowerCase().includes(query)
-    );
-  });
-
   const startIndex = page * pageSize;
   const endIndex = startIndex + pageSize;
-  const paginatedFilms = filteredFilms.slice(startIndex, endIndex);
+  const paginatedFilms = data.slice(startIndex, endIndex);
 
   return (
     <div className="table-container">
-
       <div>
-      <Button color="secondary" onClick={() => onModelOpen(null, "add")}>
-        <AddIcon />
-      </Button>
+        <Button color="secondary" onClick={() => onModelOpen(null, "add")}>
+          <AddIcon />
+        </Button>
 
-      <input
-        type="text"
-        value={searchValue}
-        placeholder="Search by title or director"
-        onChange={(e) => setSearchValue(e.target.value)}
-      />  
+        <input
+          type="text"
+          value={searchValue}
+          placeholder="Title or director or ID"
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
       </div>
       <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Title</th>
             <th>Genre</th>
             <th>Director</th>
             <th>Release</th>
             <th>Rating</th>
-            <th>Descretion</th>
+            <th>Description</th>
             <th>Option</th>
           </tr>
-          </thead>
-          <tbody>
+        </thead>
+        <tbody>
           {paginatedFilms.map((film) => {
             return (
               <tr key={film.id}>
+                <td>{film.id}</td>
                 <td>{film.title}</td>
                 <td>{film.genre}</td>
                 <td>{film.director}</td>
@@ -101,7 +99,7 @@ const Table = ({ data, onModelOpen, onDeleteFilm }) => {
         />
         <Button
           onClick={handleNext}
-          disabled={filteredFilms.length < endIndex}
+          disabled={data.length < endIndex}
           startIcon={<ArrowForwardIcon />}
         />
       </div>
