@@ -30,11 +30,12 @@ Users can view, add, edit, and delete movies, as well as perform sorting, filter
 **>** `dotnet restore`.
 
 2. Provide your connection string in the appsettings.json or in a password manager
+Also change `connectionString` in in DesignTimeDbContextFactory.cs
 
-3. Execute the EF migrations  
+4. Execute the EF migrations  
 **>** `dotnet ef database update`
 
-4. Run the backend:
+5. Run the backend:
    Your backend should be running at https://localhost:7091.
 
 ---
