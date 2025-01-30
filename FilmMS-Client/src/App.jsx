@@ -3,6 +3,7 @@ import Modal from "./compontents/modal/AddEditModal/EditAddModal";
 import DeleteModal from "./compontents/modal/DeleteModal/DeleteModal";
 import BASE_URL from "./API/BASE_URL";
 import ErrorModal from "./compontents/errorMessage/ErrorModal";
+import { saveFilm } from "./API/filmService";
 
 import { fetchAndFilterFilms } from "./Helper/fetchAndFilterFilms";
 
@@ -41,43 +42,9 @@ function App() {
 
   const handleSave = async (filmData) => {
     try {
-      let url;
-      let options;
-
-      if (method === "edit") {
-        url = `${BASE_URL}/films/${filmData.id}`;
-        options = {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(filmData),
-        };
-      } else if (method === "add") {
-        url = `${BASE_URL}/films`;
-
-        const filmDataNew = { ...filmData };
-        delete filmDataNew.id;
-
-        options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(filmDataNew),
-        };
-      } else {
-        throw new Error("Not supported method");
-      }
-
-      const response = await fetch(url, options);
-      const data = await response.json();
 
 
-      if (!response.ok) {
-        console.log("Error saving data:", data);
-        throw new Error(JSON.stringify(data));
-      }
+      await saveFilm(filmData, method);
 
       const updatedFilms = await fetch(`${BASE_URL}/films`).then((r) =>
         r.json()
@@ -88,9 +55,6 @@ function App() {
     } catch (error) {
       try{
         const parsedError = JSON.parse(error.message);
-        console.log(parsedError.message);
-        console.log(parsedError.errors);
-        
         setErrors(parsedError.errors);
       // eslint-disable-next-line no-unused-vars
       }catch(parseError){
