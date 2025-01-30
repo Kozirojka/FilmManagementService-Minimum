@@ -16,7 +16,11 @@ public class GetAllFilmQueryHandler(ApplicationDbContext context)
     {
         var films = await context.Films.ToListAsync(cancellationToken);
 
-        
+        if (films is null || !films.Any())
+        {
+            return new List<Film>();
+        }
+
         return films;
     }
 }

@@ -67,4 +67,21 @@ public class GetAllFilmsTest
         Assert.Equal(testList.Count, result.Value.Count);
         Assert.Equal(testList[0].Id, result.Value[0].Id);
     }
+    
+    
+    [Fact]
+    public async Task GetAllFilms_EmptyDatabase_ShouldReturnEmptyList()
+    {
+        using var context = CreateInMemoryDbContext();
+        var handler = new GetAllFilmQueryHandler(context);
+        var query = new GetAllFilmsQuery();
+
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        Assert.True(result.Value.Count == 0);
+        
+        Assert.Empty(result.Value);
+    }
+    
+    
 }

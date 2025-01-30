@@ -30,12 +30,7 @@ public class GetAllFilmsEndpoint : IEndpoint
 
         if (result.IsError)
         {
-            var firstError = result.FirstError;
-            return Results.Problem(
-                detail: firstError.Description,
-                title: firstError.Code,
-                statusCode: StatusCodes.Status404NotFound
-            );
+            return Results.Ok(new List<Film>());
         }
         
         return Results.Ok(result.Value);
