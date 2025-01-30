@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmMS.Infrastructure", "Fi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmMS.Application", "FilmMS.Application\FilmMS.Application.csproj", "{CE5956C7-70E0-43D5-BB50-BAD29E469176}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FilmMS_Testing", "FilmMS_Testing", "{EBF03A04-D857-4A73-A61C-41E28CF54E84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmMS_Unit_Testing", "FilmMS_Unit_Testing\FilmMS_Unit_Testing.csproj", "{7E7CB7FD-D225-4A61-9161-77E6FC7FB253}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{CE5956C7-70E0-43D5-BB50-BAD29E469176}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE5956C7-70E0-43D5-BB50-BAD29E469176}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE5956C7-70E0-43D5-BB50-BAD29E469176}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E7CB7FD-D225-4A61-9161-77E6FC7FB253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E7CB7FD-D225-4A61-9161-77E6FC7FB253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E7CB7FD-D225-4A61-9161-77E6FC7FB253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E7CB7FD-D225-4A61-9161-77E6FC7FB253}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7E7CB7FD-D225-4A61-9161-77E6FC7FB253} = {EBF03A04-D857-4A73-A61C-41E28CF54E84}
 	EndGlobalSection
 EndGlobal

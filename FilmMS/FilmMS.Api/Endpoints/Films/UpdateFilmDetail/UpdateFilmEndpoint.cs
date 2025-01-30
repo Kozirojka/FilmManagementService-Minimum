@@ -26,15 +26,7 @@ public class UpdateFilmEndpoint : IEndpoint
             return Results.BadRequest(validationResult.Errors);
         }
         
-        if (request.ReleaseDate.Kind == DateTimeKind.Unspecified)
-        {
-            request.ReleaseDate = DateTime.SpecifyKind(request.ReleaseDate, DateTimeKind.Utc);
-        }
-        else
-        {
-            request.ReleaseDate = request.ReleaseDate.ToUniversalTime();
-        }
-        
+        request.ReleaseDate = request.ReleaseDate.ToUniversalTime();
         
         var command = new UpdateFilmCommand(request, id);
         

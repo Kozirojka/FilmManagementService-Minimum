@@ -16,7 +16,7 @@ public class GetFilmByIdEndpoint : IEndpoint
     private async Task<IResult> GetFilmByIdHandler(int id,IMediator mediator)
     {
 
-        var query = new GetFilmQuery(id);
+            var query = new GetFilmQuery(id);
         var result = await mediator.Send(query);
 
         if (result.IsError)

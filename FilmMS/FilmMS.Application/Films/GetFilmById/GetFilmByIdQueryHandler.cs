@@ -21,7 +21,10 @@ public class GetFilmByIdQueryHandler(ApplicationDbContext dbContext) : IRequestH
 
         if (result == null)
         {
-            return Error.NotFound($"No film with id: {query.Id} was found");
+            return Error.NotFound(
+                code: "Film.NotFound",
+                description: $"No film with id: {query.Id} was found"
+            );
         }
 
         return result;

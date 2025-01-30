@@ -1,3 +1,4 @@
+using FilmMS.Api.Endpoints.Films.Validation;
 using FilmMS.Api.Extension;
 using FilmMS.Application.Films.GetAllFilms;
 using FilmMS.Infrastructure;
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 {
     o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 builder.Services.AddMediatR(cfg =>
 {

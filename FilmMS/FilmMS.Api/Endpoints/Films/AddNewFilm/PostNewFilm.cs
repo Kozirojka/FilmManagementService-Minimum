@@ -17,10 +17,10 @@ public class PostNewFilm : IEndpoint
     
     public void RegisterEndpoints(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPost("/films", POstNewFilmHandler).WithTags("Films");
+        endpoints.MapPost("/films", PostNewFilmHandler).WithTags("Films");
     }
-
-    private async Task<IResult> POstNewFilmHandler(Film film, IMediator mediator)
+    
+    private async Task<IResult> PostNewFilmHandler(Film film, IMediator mediator)
     {
 
         ValidationResult validationResult = await _postNewFilmValidation.ValidateAsync(film);
@@ -30,15 +30,7 @@ public class PostNewFilm : IEndpoint
             return Results.BadRequest(validationResult.Errors);
         }
         
-        if (film.ReleaseDate.Kind == DateTimeKind.Unspecified)
-        {
-            film.ReleaseDate = DateTime.SpecifyKind(film.ReleaseDate, DateTimeKind.Utc);
-        }
-        else
-        {
-            film.ReleaseDate = film.ReleaseDate.ToUniversalTime();
-        }
-
+        film.ReleaseDate = film.ReleaseDate.ToUniversalTime();
         
         var command = new PostNewFilmCommnad(film);
         var result = await mediator.Send(command);
