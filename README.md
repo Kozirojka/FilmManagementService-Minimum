@@ -29,8 +29,8 @@ Users can view, add, edit, and delete movies, as well as perform sorting, filter
 1. Go to the server folder and restore packages and dependencies   
 **>** `dotnet restore`.
 
-2. Provide your connection string in the appsettings.json or in a password manager
-Also change `connectionString` in in DesignTimeDbContextFactory.cs
+2. Provide your `connection string` in the appsettings.json  
+Also change `connectionString` in DesignTimeDbContextFactory.cs
 
 4. Execute the EF migrations  
 **>** `dotnet ef database update`
